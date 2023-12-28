@@ -2,37 +2,48 @@ function playRound(playerSelection, computerSelection) {
 	// Convert playerSelection to lowercase for case-insensitive comparison
 	const player = playerSelection.toLowerCase();
 	const computer = computerSelection.toLowerCase();
-  
+
 	if (player === computer) {
-	  return "It's a tie!";
+	    return "It's a tie!";
 	} else if (
-	  (player === "rock" && computer === "scissors") ||
-	  (player === "paper" && computer === "rock") ||
-	  (player === "scissors" && computer === "paper")
+	    (player === "rock" && computer === "scissors") ||
+	    (player === "paper" && computer === "rock") ||
+	    (player === "scissors" && computer === "paper")
 	) {
-	  return `You win! ${player} beats ${computer}.`;
+	    return `You win! ${player} beats ${computer}.`;
 	} else {
-	  return `You lose! ${computer} beats ${player}.`;
-	}
-  }
-  function getComputerChoice() {
+	    return `You lose! ${computer} beats ${player}.`;
+	    }
+    }
+    function getComputerChoice() {
 	const choices = ["rock", "paper", "scissors"];
 		const randomIndex = Math.floor(Math.random() * choices.length);
 	return choices[randomIndex];
-  }
-  function getPlayerChoice() {
-	let playerInput = prompt("Enter your choice: rock, paper, or scissors").toLowerCase();
-  
-	// Check if the input is valid
-	while (!["rock", "paper", "scissors"].includes(playerInput)) {
-	  alert("Invalid choice. Please enter rock, paper, or scissors.");
-	  playerInput = prompt("Enter your choice: rock, paper, or scissors").toLowerCase();
+    }
+    function getPlayerChoice(choice) {
+	return choice;
+    } 
+
+	function updateResult(result) {
+		const resultElement = document.getElementById("result");
+		resultElement.innerText = result;
 	}
-  
-	return playerInput;
-  } 
-  
-  const playerSelection = getPlayerChoice();
-  const computerSelection = getComputerChoice(); // Assuming you have a function named getComputerChoice
-  console.log(playRound(playerSelection, computerSelection));
-  
+
+	function handleButtonClick(choice) {
+		const playerSelection = getPlayerChoice(choice);
+    	const computerSelection = getComputerChoice();
+    	const result = playRound(playerSelection, computerSelection);
+    updateResult(result);
+	}
+
+	document.getElementById("rockButton").addEventListener("click", function() {
+    	handleButtonClick("rock");
+	});
+
+	document.getElementById("paperButton").addEventListener("click", function() {
+    handleButtonClick("paper");
+	});
+
+	document.getElementById("scissorsButton").addEventListener("click", function() {
+    	handleButtonClick("scissors");
+	});
